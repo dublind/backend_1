@@ -1,0 +1,38 @@
+PRODUCTOS = {
+    1: {
+        "id": 1,
+        "nombre": "Audífonos Pulse Pro",
+        "categoria": "Audio",
+        "precio": 59990,
+        "descripcion": "Audífonos inalámbricos con cancelación de ruido, autonomía de 30 horas y almohadillas de espuma viscoelástica.",
+        "imagen": "images/audifonos.svg",
+        "destacado": True,
+    },
+    2: {
+        "id": 2,
+        "nombre": "Teclado Nova 75",
+        "categoria": "Accesorios",
+        "precio": 74990,
+        "descripcion": "Teclado mecánico compacto con iluminación RGB, conexión USB-C y switches silenciosos intercambiables.",
+        "imagen": "images/teclado.svg",
+        "destacado": True,
+    },
+    3: {
+        "id": 3,
+        "nombre": "Mouse Orbit X",
+        "categoria": "Accesorios",
+        "precio": 34990,
+        "descripcion": "Mouse ergonómico de alta precisión con seis botones programables y conexión dual Bluetooth o USB.",
+        "imagen": "images/mouse.svg",
+        "destacado": False,
+    },
+    4: {
+        "id": 4,
+        "nombre": "Parlante Echo Mini",
+        "categoria": "Audio",
+        "precio": 42990,
+        "descripcion": "Parlante portátil resistente a salpicaduras, con sonido estéreo, micrófono integrado y 16 horas de batería.",
+        "imagen": "images/parlante.svg",
+        "destacado": False,
+    },
+}

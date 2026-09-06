@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Catálogo | Nexo Store{% endblock %}
+{% block content %}
+<section class="container py-5">
+  <span class="eyebrow">Colección 2026</span><h1 class="display-5 fw-bold mt-2">Catálogo de productos</h1>
+  <p class="text-secondary mb-4">Selecciona un producto para revisar su imagen, descripción y precio.</p>
+  <div class="filters mb-4">
+    <a class="btn btn-sm {% if categoria_actual == 'todas' %}btn-dark{% else %}btn-outline-dark{% endif %}" href="?categoria=todas">Todos</a>
+    <a class="btn btn-sm {% if categoria_actual == 'audio' %}btn-dark{% else %}btn-outline-dark{% endif %}" href="?categoria=audio">Audio</a>
+    <a class="btn btn-sm {% if categoria_actual == 'accesorios' %}btn-dark{% else %}btn-outline-dark{% endif %}" href="?categoria=accesorios">Accesorios</a>
+  </div>
+  <div class="row g-4">
+    {% for producto in productos %}
+    <div class="col-sm-6 col-lg-3">
+      <a class="product-card h-100 d-block" href="{% url 'productos:detalle' producto.id %}">
+        <img src="{% static producto.imagen %}" alt="{{ producto.nombre }}">
+        <div class="p-3"><small>{{ producto.categoria }}</small><h2 class="h5">{{ producto.nombre }}</h2><strong>${{ producto.precio }}</strong></div>
+      </a>
+    </div>
+    {% empty %}<p>No hay productos en esta categoría.</p>{% endfor %}
+  </div>
+</section>
+{% endblock %}
