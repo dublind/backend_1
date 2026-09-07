@@ -4,6 +4,7 @@ from docx.enum.table import WD_CELL_VERTICAL_ALIGNMENT
 from docx.enum.text import WD_ALIGN_PARAGRAPH
 from docx.oxml import OxmlElement
 from docx.oxml.ns import qn
+from docx.opc.constants import RELATIONSHIP_TYPE as RT
 from docx.shared import Inches, Pt, RGBColor
 from docx.enum.style import WD_STYLE_TYPE
 from pathlib import Path
@@ -98,6 +99,28 @@ def add_code(doc, code):
     p = doc.add_paragraph(style="Código")
     p.add_run(code)
     return p
+
+
+def add_hyperlink(paragraph, text, url):
+    relationship_id = paragraph.part.relate_to(url, RT.HYPERLINK, is_external=True)
+    hyperlink = OxmlElement("w:hyperlink")
+    hyperlink.set(qn("r:id"), relationship_id)
+
+    run = OxmlElement("w:r")
+    run_properties = OxmlElement("w:rPr")
+    color = OxmlElement("w:color")
+    color.set(qn("w:val"), "0563C1")
+    underline = OxmlElement("w:u")
+    underline.set(qn("w:val"), "single")
+    run_properties.append(color)
+    run_properties.append(underline)
+    run.append(run_properties)
+
+    text_element = OxmlElement("w:t")
+    text_element.text = text
+    run.append(text_element)
+    hyperlink.append(run)
+    paragraph._p.append(hyperlink)
 
 
 doc = Document()
@@ -338,6 +361,9 @@ doc.add_paragraph(
     "Como mejora futura, el diccionario puede reemplazarse por modelos de base de datos para administrar productos desde "
     "el panel de Django. También se podrían incorporar registro real de clientes, carro de compras y control de inventario."
 )
+doc.add_heading("Repositorio del proyecto", level=1)
+repo_paragraph = doc.add_paragraph("El código fuente y el informe están disponibles en GitHub: ")
+add_hyperlink(repo_paragraph, "github.com/dublind/backend_1", "https://github.com/dublind/backend_1")
 doc.add_heading("Referencias", level=1)
 doc.add_paragraph("Django Software Foundation. Django documentation. https://docs.djangoproject.com/")
 doc.add_paragraph("Bootstrap Team. Bootstrap 5 documentation. https://getbootstrap.com/docs/5.3/")
